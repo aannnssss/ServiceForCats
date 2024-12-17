@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:13.3
+    container_name: Service_Cat
+    restart: always
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "123456"
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+      - /Users/annastarostina/Downloads/БАЗЫДАННЫХ/Cat_Service/MyService/migrations/ddl.sql:/docker-entrypoint-initdb.d/ddl.sql
+      - /Users/annastarostina/Downloads/БАЗЫДАННЫХ/Cat_Service/MyService/migrations/dml.sql:/docker-entrypoint-initdb.d/dml.sql
+      - /Users/annastarostina/Downloads/БАЗЫДАННЫХ/Cat_Service/MyService/src/backups:/backups
+
+volumes:
+  postgres_db:
+    driver: local
